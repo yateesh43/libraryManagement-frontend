@@ -1,10 +1,16 @@
-import React from 'react';
+import React from "react";
+import "../assets/adminDashboard.css";
+
 const DashboardStats = () => {
     return (
-        <div className="stats-container">
-            <div className="stat-box">Total Users: 150</div>
-            <div className="stat-box">Total Books: 500</div>
+        <div className="dashboard-container">
+            <div className="stats-card"> <h3>Total Users</h3> <p>150</p> </div>
+            <div className="stats-card"> <h3>Total Genres</h3> <p>48</p> </div>
+            <div className="stats-card"> <h3>Books Buyed (December)</h3> <p>500</p> </div>
+            <div className="stats-card"> <h3>Books Rented (December)</h3> <p>50</p> </div>
         </div>
     );
 };
+
 export default DashboardStats;
+
