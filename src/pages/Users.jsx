@@ -1,0 +1,61 @@
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
+import "../assets/AdminDashboard.css";
+
+const Users = () => {
+  const [users, setUsers] = useState([
+    { id: 1, name: "John Doe", email: "john@example.com", status: "Active" },
+    { id: 2, name: "Jane Smith", email: "jane@example.com", status: "Inactive" },
+  ]);
+
+  // Delete User
+  const deleteUser = (id) => {
+    setUsers(users.filter((user) => user.id !== id));
+  };
+
+  return (
+    <div className="dashboard-container">
+      <Sidebar />
+      <div className="dashboard-content">
+      <Navbar onSearch={(query) => {
+  setUsers(users.filter(user => user.name.toLowerCase().includes(query.toLowerCase())));
+}} />
+
+        <h1>User Management</h1>
+
+        {/* User Table */}
+        <table className="users-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.status}</td>
+                <td>
+                  <span className="delete-icon" onClick={() => deleteUser(user.id)}>
+                    <FontAwesomeIcon icon={faTrash} />
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default Users;
