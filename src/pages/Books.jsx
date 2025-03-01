@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar"; // Import Navbar
+import Navbar from "../components/Navbar";
 import "../assets/AdminDashboard.css";
 
 const Books = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const books = [
     { id: 1, title: "The Great Gatsby", author: "F. Scott Fitzgerald" },
     { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee" },
@@ -12,29 +13,31 @@ const Books = () => {
   ];
 
   return (
-    <div className="dashboard-container">
-      <Sidebar />
-      <div className="dashboard-content">
-        <Navbar /> {/* Add Navbar here */}
-        <h1>Books List</h1>
-        <table className="books-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>Author</th>
-            </tr>
-          </thead>
-          <tbody>
-            {books.map((book) => (
-              <tr key={book.id}>
-                <td>{book.id}</td>
-                <td>{book.title}</td>
-                <td>{book.author}</td>
+    <div className={`dashboard-container ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+      <div className="dashboard-main">
+        <Navbar isSidebarOpen={isSidebarOpen} />
+        <div className="dashboard-content">
+          <h1>Books List</h1>
+          <table className="books-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {books.map((book) => (
+                <tr key={book.id}>
+                  <td>{book.id}</td>
+                  <td>{book.title}</td>
+                  <td>{book.author}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "../assets/AdminDashboard.css";
 
 const Navbar = ({ isSidebarOpen }) => {
@@ -9,8 +9,6 @@ const Navbar = ({ isSidebarOpen }) => {
   return (
     <div className={`navbar ${isSidebarOpen ? "expanded" : "collapsed"}`}>
       <h2>Admin Panel</h2>
-
-      {/* Search Bar */}
       <div className="search-bar">
         <input
           type="text"
@@ -20,8 +18,6 @@ const Navbar = ({ isSidebarOpen }) => {
         />
         <FontAwesomeIcon icon={faSearch} className="search-icon" />
       </div>
-
-      {/* Profile Section */}
       <div className="profile">
         <span>Admin</span>
         <img

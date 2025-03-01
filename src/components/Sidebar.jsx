@@ -14,12 +14,9 @@ import "../assets/AdminDashboard.css";
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   return (
     <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
-      {/* Sidebar Toggle Button */}
       <button className="toggle-btn" onClick={toggleSidebar}>
         <FontAwesomeIcon icon={faBars} />
       </button>
-
-      {/* Sidebar Menu */}
       <ul>
         <li>
           <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "active" : "")}>

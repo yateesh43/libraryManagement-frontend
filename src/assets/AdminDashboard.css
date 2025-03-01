@@ -218,9 +218,8 @@ body {
     }
 }
 
-/* Navbar Styling */
 .navbar {
-    background: #121212; /* Same as Sidebar */
+    background: #121212;
     color: #E0E0E0;
     display: flex;
     justify-content: space-between;
@@ -233,13 +232,13 @@ body {
     width: calc(100% - 250px); /* Full width minus sidebar */
     z-index: 1000;
     transition: left 0.3s ease-in-out, width 0.3s ease-in-out;
-}
-
-/* Adjust Navbar when Sidebar is Collapsed */
-.sidebar.closed ~ .navbar {
+  }
+  
+  /* Adjust Navbar when Sidebar is Collapsed */
+  .sidebar.closed ~ .navbar {
     left: 60px;
     width: calc(100% - 60px);
-}
+  }
 
 /* Search Bar */
 .search-bar {
