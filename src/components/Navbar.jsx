@@ -7,7 +7,7 @@ const Navbar = ({ isSidebarOpen }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <div className={`navbar ${isSidebarOpen ? "expanded" : "collapsed"}`}>
+    <div className="navbar">
       <h2>Admin Panel</h2>
       <div className="search-bar">
         <input

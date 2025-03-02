@@ -7,8 +7,9 @@ const AdminDashboard = ({ isSidebarOpen, setIsSidebarOpen }) => {
   return (
     <div className={`dashboard-container ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+      <Navbar isSidebarOpen={isSidebarOpen} />  
       <div className="dashboard-main">
-        <Navbar isSidebarOpen={isSidebarOpen} />
+        
         <div className="dashboard-content">
           <h1>Welcome, Admin</h1>
           <div className="dashboard-cards">

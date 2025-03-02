@@ -5,8 +5,8 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import "../assets/AdminDashboard.css";
 
-const Users = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+const Users = ({ isSidebarOpen, setIsSidebarOpen }) => {
+  
   const [users, setUsers] = useState([
     { id: 1, name: "John Doe", email: "john@example.com", status: "Active" },
     { id: 2, name: "Jane Smith", email: "jane@example.com", status: "Inactive" },
@@ -26,8 +26,9 @@ const Users = () => {
   return (
     <div className={`dashboard-container ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+      <Navbar isSidebarOpen={isSidebarOpen} onSearch={setSearchQuery} />
       <div className="dashboard-main">
-        <Navbar isSidebarOpen={isSidebarOpen} onSearch={setSearchQuery} />
+        
         <div className="dashboard-content">
           <h1>User Management</h1>
 

@@ -128,42 +128,40 @@ body {
     width: calc(100% - 60px);
   }
 
-/* Search Bar */
+/* Search Bar Container */
 .search-bar {
+    position: relative; /* Essential for icon positioning */
     flex: 1;
     max-width: 300px;
     margin: 0 20px;
 }
 
+/* Input Field */
 .search-bar input {
     width: 100%;
-    padding: 8px 12px;
+    padding: 8px 40px 8px 12px; /* Right padding for icon space */
     border: 1px solid #555;
     border-radius: 5px;
     background-color: #1F1F1F;
     color: #E0E0E0;
     font-size: 1rem;
+    transition: border-color 0.3s ease;
 }
 
-.search-bar input::placeholder {
-    color: #aaa;
-}
-
-.search-bar input:focus {
-    border-color: #FF5722;
-    outline: none;
-}
-
-
-/* Search Icon */
+/* Search Icon Positioning */
 .search-icon {
     position: absolute;
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
     color: #aaa;
-    cursor: pointer;
+    pointer-events: none; /* Allows clicking through to input */
     font-size: 1rem;
+}
+
+/* Focus States */
+.search-bar input:focus + .search-icon {
+    color: #FF5722; /* Highlight icon when input is focused */
 }
 
 

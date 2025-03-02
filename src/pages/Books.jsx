@@ -3,8 +3,8 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import "../assets/AdminDashboard.css";
 
-const Books = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+const Books = ({ isSidebarOpen, setIsSidebarOpen }) => {
+  
   const books = [
     { id: 1, title: "The Great Gatsby", author: "F. Scott Fitzgerald" },
     { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee" },
@@ -15,8 +15,9 @@ const Books = () => {
   return (
     <div className={`dashboard-container ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+      <Navbar isSidebarOpen={isSidebarOpen} />
       <div className="dashboard-main">
-        <Navbar isSidebarOpen={isSidebarOpen} />
+        
         <div className="dashboard-content">
           <h1>Books List</h1>
           <table className="books-table">
