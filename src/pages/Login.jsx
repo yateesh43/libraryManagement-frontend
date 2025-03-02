@@ -8,7 +8,7 @@ const Login = () => {
 
   const validateLogin = () => {
     if (username === "admin" && password === "admin123") {
-      window.location.href = "/dashboard"; // Redirect
+      window.location.href = "/admin/dashboard"; // Redirect
     } else if (username === "user" && password === "user123") {
       window.location.href = "/user-dashboard";
     } else {

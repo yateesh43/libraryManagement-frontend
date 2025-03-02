@@ -1,35 +1,38 @@
-import { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
-import AdminDashboard from "./pages/AdminDashboard.jsx";
-import Users from "./pages/Users.jsx";
-import Books from "./pages/Books.jsx";
+import Login from "./pages/Login";
+import AdminDashboard from "./pages/AdminDashboard";
+import Users from "./pages/Users";
+import Books from "./pages/Books";
+import Sidebar from "./components/Sidebar";
+import Navbar from "./components/Navbar";
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="/dashboard"
-          element={<AdminDashboard isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />}
-        />
-        <Route
-          path="/users"
-          element={<Users isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />}
-        />
-        <Route
-          path="/books"
-          element={<Books isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />}
-        />
+        <Route path="/" element={<Login />} />
+        <Route path="/admin/*" element={<AdminLayout />} />
       </Routes>
     </Router>
   );
 }
+
+const AdminLayout = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(true);
+  
+  return (
+    <div className="admin-container">
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+      <Navbar isSidebarOpen={isSidebarOpen} />
+      <Routes>
+        <Route path="dashboard" element={<AdminDashboard isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+        <Route path="users" element={<Users isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+        <Route path="books" element={<Books isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+        <Route path="*" element={<Navigate to="/admin/dashboard" />} />
+      </Routes>
+    </div>
+  );
+};
 
 export default App;

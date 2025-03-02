@@ -19,9 +19,9 @@ const Navbar = ({ isSidebarOpen }) => {
         <FontAwesomeIcon icon={faSearch} className="search-icon" />
       </div>
       <div className="profile">
-        <span>Admin</span>
+        {/* <span>Admin</span> */}
         <img
-          src="https://png.pngtree.com/png-clipart/20230409/original/pngtree-admin-and-customer-service-job-vacancies-png-image_9041264.png"
+          src="https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg"
           alt="Admin Profile"
         />
       </div>
