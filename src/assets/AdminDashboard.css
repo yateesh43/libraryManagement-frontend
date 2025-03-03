@@ -142,6 +142,47 @@ body {
     color: #FF5722;
 }
 
+/* ================= Search Container ================= */
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    width: 100%;
+    max-width: 400px;
+}
+
+.search-container input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #1F1F1F;
+    color: #E0E0E0;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.search-container input:focus {
+    border-color: #FF5722;
+    outline: none;
+}
+
+.clear-search-btn {
+    background: #FF5722;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.clear-search-btn:hover {
+    background: #E64A19;
+}
+
+
 /* ================= Profile ================= */
 .profile {
     display: flex;
