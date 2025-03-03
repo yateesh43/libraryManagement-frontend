@@ -6,6 +6,7 @@ import Users from "./pages/Users";
 import Books from "./pages/Books";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
+import Reports from "./pages/Reports";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ const AdminLayout = () => {
         <Route path="dashboard" element={<AdminDashboard isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
         <Route path="users" element={<Users isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
         <Route path="books" element={<Books isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+        <Route path="reports" element={<Reports isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
         <Route path="*" element={<Navigate to="/admin/dashboard" />} />
       </Routes>
     </div>
