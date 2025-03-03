@@ -301,6 +301,39 @@ body {
     background: #333;
 }
 
+/* ================= Books Table ================= */
+.books-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #2C2C2C;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.books-table th, 
+.books-table td {
+    padding: 12px;
+    text-align: center;
+}
+
+.books-table th {
+    background: #FF5722;
+    color: white;
+    font-weight: 600;
+}
+
+.books-table tr:nth-child(even) {
+    background: #252525;
+}
+
+.books-table tr:hover {
+    background: #333;
+}
+
+.books-table td {
+    color: #E0E0E0;
+}
 
 /* ================= Activity & Charts ================= */
 .recent-activity {
@@ -402,6 +435,12 @@ body {
 
     .card {
         width: 90%;
+    }
+
+    .books-table th,
+    .books-table td {
+        padding: 8px;
+        font-size: 0.9rem;
     }
 }
 
