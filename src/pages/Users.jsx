@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
-import UserTable from "../components/UserTable"; // Import UserTable component
+import UserTable from "../components/UserTable";
 import "../assets/AdminDashboard.css";
 
 const Users = ({ isSidebarOpen, setIsSidebarOpen }) => {
@@ -28,10 +28,26 @@ const Users = ({ isSidebarOpen, setIsSidebarOpen }) => {
     user.status.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Delete user by email
+  // Delete user by email and show toast notification
   const deleteUser = (email) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       setUsers(users.filter((user) => user.email !== email));
+      toast.success("User deleted successfully!", {  // Added an emoji icon
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+        style: {
+          backgroundColor: "#ff4d4d", 
+          color: "#fff",
+          fontSize: "16px",
+          fontWeight: "bold",
+          borderRadius: "8px",
+        },
+      });
     }
   };
 
@@ -60,6 +76,20 @@ const Users = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
           {/* User Table Component */}
           <UserTable users={filteredUsers} deleteUser={deleteUser} />
+
+          {/* Toast Container - Needed for Toasts to Work */}
+          <ToastContainer 
+            position="top-right"
+            autoClose={2500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
         </div>
       </div>
     </div>

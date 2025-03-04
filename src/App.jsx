@@ -7,10 +7,12 @@ import Books from "./pages/Books";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Reports from "./pages/Reports";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <Router>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/admin/*" element={<AdminLayout />} />

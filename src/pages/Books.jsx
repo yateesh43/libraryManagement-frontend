@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import BookModal from "../components/BookModal";
+import "react-toastify/dist/ReactToastify.css";
 import "../assets/AdminDashboard.css";
 
 const Books = ({ isSidebarOpen, setIsSidebarOpen }) => {
@@ -35,16 +37,65 @@ const Books = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const addOrUpdateBook = (book) => {
     if (book.id) {
       setBooks((prevBooks) => prevBooks.map((b) => (b.id === book.id ? book : b)));
+      toast.info(`Book updated: ${book.title}`, {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+        style: {
+          backgroundColor: "#3498db", // Blue for edit
+          color: "#fff",
+          fontSize: "16px",
+          fontWeight: "bold",
+          borderRadius: "8px",
+        },
+      });
     } else {
       const newBook = { ...book, id: books.length + 1 };
       setBooks([...books, newBook]);
+      toast.success(`Book added: ${newBook.title}`, {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+        style: {
+          backgroundColor: "#2ecc71", // Green for success
+          color: "#fff",
+          fontSize: "16px",
+          fontWeight: "bold",
+          borderRadius: "8px",
+        },
+      });
     }
   };
 
   const deleteBook = (id) => {
-    if (window.confirm("Are you sure you want to delete this book?")) {
+    const bookToDelete = books.find((book) => book.id === id);
+    if (window.confirm(`Are you sure you want to delete "${bookToDelete?.title}"?`)) {
       const updatedBooks = books.filter((book) => book.id !== id).map((book, index) => ({ ...book, id: index + 1 }));
       setBooks(updatedBooks);
+      toast.error(`Book deleted: ${bookToDelete?.title}`, {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+        style: {
+          backgroundColor: "#e74c3c", // Red for delete
+          color: "#fff",
+          fontSize: "16px",
+          fontWeight: "bold",
+          borderRadius: "8px",
+        },
+      });
     }
   };
 
@@ -107,6 +158,9 @@ const Books = ({ isSidebarOpen, setIsSidebarOpen }) => {
         </div>
       </div>
       <BookModal isOpen={isModalOpen} onClose={closeModal} onSave={addOrUpdateBook} bookData={currentBook} />
+
+      {/* Toast Container */}
+      <ToastContainer />
     </div>
   );
 };
