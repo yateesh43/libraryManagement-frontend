@@ -1,55 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import UserTable from "../components/UserTable";
+import api from "../services/api"; 
 import "../assets/AdminDashboard.css";
 
 const Users = ({ isSidebarOpen, setIsSidebarOpen }) => {
-  const [users, setUsers] = useState([
-    { name: "Goku", email: "goku@anime.com", status: "Active" },
-    { name: "Luffy", email: "luffy@anime.com", status: "Inactive" },
-    { name: "Naruto", email: "naruto@anime.com", status: "Active" },
-    { name: "Sasuke", email: "sasuke@anime.com", status: "Inactive" },
-    { name: "Ichigo", email: "ichigo@anime.com", status: "Active" },
-    { name: "Levi", email: "levi@anime.com", status: "Active" },
-    { name: "Eren", email: "eren@anime.com", status: "Inactive" },
-    { name: "Gojo", email: "gojo@anime.com", status: "Active" },
-    { name: "Light Yagami", email: "light@anime.com", status: "Inactive" },
-    { name: "Tanjiro", email: "tanjiro@anime.com", status: "Active" }
-  ]);
+  const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  // Filter users based on search query (name, email, status)
-  const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.status.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Fetch users from backend
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await api.get("/user/all");
+        setUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        toast.error("Failed to load users");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // Delete user by email and show toast notification
-  const deleteUser = (email) => {
+    fetchUsers();
+  }, []);
+
+  // Delete user by ID
+  const deleteUser = async (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
-      setUsers(users.filter((user) => user.email !== email));
-      toast.success("User deleted successfully!", {  // Added an emoji icon
-        position: "top-right",
-        autoClose: 2500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "colored",
-        style: {
-          backgroundColor: "#ff4d4d", 
-          color: "#fff",
-          fontSize: "16px",
-          fontWeight: "bold",
-          borderRadius: "8px",
-        },
-      });
+      try {
+        await api.delete(`/user/delete/${id}`);
+        setUsers(users.filter((user) => user.id !== id));
+        toast.success("User deleted successfully!");
+      } catch (error) {
+        console.error("Error deleting user:", error);
+        toast.error("Failed to delete user");
+      }
     }
   };
+
+  // Filter users based on search query (name, email)
+  const filteredUsers = users.filter(
+    (user) =>
+      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className={`dashboard-container ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
@@ -59,37 +58,33 @@ const Users = ({ isSidebarOpen, setIsSidebarOpen }) => {
       <div className="dashboard-main">
         <div className="dashboard-content">
           <h1>User Management</h1>
-          <p>Showing {filteredUsers.length} users</p>
 
-          {/* Search Input & Clear Button */}
-          <div className="search-container">
-            <input 
-              type="text" 
-              placeholder="Search users..." 
-              value={searchQuery} 
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            {searchQuery && (
-              <button onClick={() => setSearchQuery("")} className="clear-search-btn">Clear</button>
-            )}
-          </div>
+          {loading ? (
+            <p>Loading users...</p>
+          ) : (
+            <>
+              <p>Showing {filteredUsers.length} users</p>
 
-          {/* User Table Component */}
-          <UserTable users={filteredUsers} deleteUser={deleteUser} />
+              {/* Search Input & Clear Button */}
+              <div className="search-container">
+                <input 
+                  type="text" 
+                  placeholder="Search users..." 
+                  value={searchQuery} 
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                {searchQuery && (
+                  <button onClick={() => setSearchQuery("")} className="clear-search-btn">Clear</button>
+                )}
+              </div>
 
-          {/* Toast Container - Needed for Toasts to Work */}
-          <ToastContainer 
-            position="top-right"
-            autoClose={2500}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-          />
+              {/* User Table Component */}
+              <UserTable users={filteredUsers} deleteUser={deleteUser} />
+            </>
+          )}
+
+          {/* Toast Container */}
+          <ToastContainer position="top-right" autoClose={2500} hideProgressBar closeOnClick draggable pauseOnHover theme="colored" />
         </div>
       </div>
     </div>
