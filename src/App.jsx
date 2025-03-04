@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
+import Register from "./pages/Register"
 import AdminDashboard from "./pages/AdminDashboard";
 import Users from "./pages/Users";
 import Books from "./pages/Books";
@@ -15,6 +16,8 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/admin/*" element={<AdminLayout />} />
       </Routes>
     </Router>
